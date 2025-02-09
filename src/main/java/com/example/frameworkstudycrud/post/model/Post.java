@@ -1,53 +1,29 @@
 package com.example.frameworkstudycrud.post.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "posts")
 public class Post {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID postId;
-
+    @Id // <-- Define the primary key
+    @JsonProperty("postId")
+    private String postId;
+    @JsonProperty("title")
     private String title;
-
+    @JsonProperty("content")
     private String content;
-
-    private Date createdDate;
-
-    public Post() {}
-
-    public Post(String title, String content, Date createdDate) {
-        this.title = title;
-        this.content = content;
-        this.createdDate = createdDate;
-    }
-
-    public UUID getPostId() {
-        return postId;
-    }
-
-    public void setPostId(UUID postId) {
-        this.postId = postId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    @JsonProperty("createdDate")
+    private LocalDateTime createdDate;
 }

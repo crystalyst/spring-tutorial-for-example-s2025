@@ -4,5 +4,8 @@ import com.example.frameworkstudycrud.post.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-public class PostRepository {
+import java.util.UUID;
+
+@Repository
+public interface PostRepository extends JpaRepository<Post, String> {
 }
