@@ -1,20 +1,15 @@
 package com.example.frameworkstudycrud.auth.controller;
 
-import com.example.frameworkstudycrud.auth.dto.LoginInResponseDto;
+import com.example.frameworkstudycrud.auth.dto.LoginResponseDto;
 import com.example.frameworkstudycrud.auth.service.AuthService;
 import com.example.frameworkstudycrud.user.dto.UserDto;
 import com.example.frameworkstudycrud.user.dto.UserLoginRequest;
 import com.example.frameworkstudycrud.user.dto.UserSignupRequest;
 import com.example.frameworkstudycrud.user.model.User;
-import com.example.frameworkstudycrud.user.repository.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -40,8 +35,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginInResponseDto> loginUser(@Valid @RequestBody UserLoginRequest userLoginRequest) {
-
+    public ResponseEntity<LoginResponseDto> loginUser(@Valid @RequestBody UserLoginRequest userLoginRequest) {
+        return ResponseEntity.ok(authService.login(userLoginRequest));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getUserInfo(Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok("User currently logged in: " + username);
+    }
+
 
 }

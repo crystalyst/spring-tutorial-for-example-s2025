@@ -8,9 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UserSignupRequest {
-    @JsonProperty("userId")
-    private Long id;
-
     @JsonProperty("email")
     private String email;
 

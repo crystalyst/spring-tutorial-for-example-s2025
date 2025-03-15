@@ -25,12 +25,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER; // 기본 USER 권한
-
-    @PrePersist
-    public void hashPassword() {
-        this.password = new BCryptPasswordEncoder().encode(this.password);
-    }
+    private Role role = Role.USER;
 }
 
 enum Role {
